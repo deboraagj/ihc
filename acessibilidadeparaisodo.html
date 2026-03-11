@@ -1,0 +1,398 @@
+<!-- ATIVIDADE 07 - IHC - Débora A. G. J. - Prof. Josué Rodrigo -->
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore Online - Tecnologia Simples e Confiável</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta Terrosa e Neutra
+                        brand: {
+                            light: '#859F74',  // Verde sálvia claro (para dark mode)
+                            DEFAULT: '#5D734E', // Verde terroso/oliva (primária)
+                            dark: '#4A5C3E',   // Verde oliva escuro (hover)
+                        },
+                        surface: {
+                            50: '#FAFAF9',  // stone-50 (fundo claro)
+                            100: '#F5F5F4', // stone-100 (cards claro)
+                            200: '#E7E5E4', // stone-200 (bordas claro)
+                            800: '#292524', // stone-800 (cards escuro)
+                            900: '#1C1917', // stone-900 (fundo escuro)
+                        },
+                        text: {
+                            main: '#292524',    // stone-800
+                            muted: '#57534E',   // stone-600
+                            light: '#F5F5F4',   // stone-100
+                            mutedLight: '#A8A29E' // stone-400
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Foco acessível, mas elegante */
+        *:focus-visible {
+            outline: 3px solid #5D734E;
+            outline-offset: 3px;
+        }
+
+        .dark *:focus-visible {
+            outline-color: #859F74;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 18px;
+            /* Tamanho base ideal para idosos, sem ser gigante */
+        }
+
+        #mobile-menu {
+            display: none;
+        }
+
+        #mobile-menu.open {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="bg-surface-50 text-text-main dark:bg-surface-900 dark:text-text-light antialiased leading-relaxed">
+
+    <header
+        class="bg-white dark:bg-surface-800 border-b border-surface-200 dark:border-surface-800 sticky top-0 z-50 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <a href="#"
+                        class="text-2xl md:text-3xl font-bold text-brand hover:text-brand-dark dark:text-brand-light transition-colors">
+                        TechStore Online
+                    </a>
+                    <span class="text-base text-text-muted dark:text-text-mutedLight mt-1">Sua loja de tecnologia</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle"
+                        class="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-surface-200 dark:border-surface-800 bg-surface-50 dark:bg-surface-900 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors font-medium text-text-main dark:text-text-light"
+                        aria-label="Alternar tema claro e escuro">
+                        <span id="theme-icon" aria-hidden="true" class="text-xl">🌙</span>
+                        <span class="hidden sm:inline">Tema</span>
+                    </button>
+
+                    <button id="mobile-menu-btn"
+                        class="md:hidden p-2 rounded-lg border-2 border-brand text-brand dark:text-brand-light dark:border-brand-light hover:bg-surface-100 dark:hover:bg-surface-800"
+                        aria-label="Abrir menu" aria-expanded="false">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <nav
+                class="hidden md:flex justify-center space-x-8 mt-4 pt-4 border-t border-surface-200 dark:border-surface-800">
+                <a href="#"
+                    class="font-medium hover:text-brand dark:hover:text-brand-light transition-colors py-2">Início</a>
+                <a href="#"
+                    class="font-medium hover:text-brand dark:hover:text-brand-light transition-colors py-2">Produtos</a>
+                <a href="#"
+                    class="font-medium hover:text-brand dark:hover:text-brand-light transition-colors py-2">Ofertas</a>
+                <a href="#"
+                    class="font-medium hover:text-brand dark:hover:text-brand-light transition-colors py-2">Suporte</a>
+                <a href="#" class="font-medium hover:text-brand dark:hover:text-brand-light transition-colors py-2">🛒
+                    Carrinho</a>
+            </nav>
+        </div>
+
+        <nav id="mobile-menu"
+            class="flex-col bg-white dark:bg-surface-800 border-t border-surface-200 dark:border-surface-800 p-4 space-y-2 md:hidden absolute w-full shadow-lg">
+            <a href="#"
+                class="block px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-900 font-medium hover:text-brand">Início</a>
+            <a href="#"
+                class="block px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-900 font-medium hover:text-brand">Produtos</a>
+            <a href="#"
+                class="block px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-900 font-medium hover:text-brand">Ofertas</a>
+            <a href="#"
+                class="block px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-900 font-medium hover:text-brand">Suporte</a>
+            <a href="#"
+                class="block px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-900 font-medium hover:text-brand">🛒
+                Carrinho</a>
+        </nav>
+    </header>
+
+    <section
+        class="bg-brand dark:bg-surface-800 text-white py-12 px-4 text-center border-b-4 border-brand-dark dark:border-surface-900 transition-colors duration-300">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Promoções em Tecnologia</h1>
+            <p class="text-xl mb-8 text-surface-100 dark:text-text-mutedLight">Encontre aparelhos fáceis de usar com
+                preços justos e entrega garantida para você.</p>
+            <a href="#produtos"
+                class="inline-block bg-white dark:bg-brand text-brand dark:text-white font-bold text-xl py-4 px-8 rounded-lg shadow-md hover:bg-surface-100 dark:hover:bg-brand-dark transition-all">
+                Ver Ofertas
+            </a>
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-4 py-8">
+        <div
+            class="bg-white dark:bg-surface-800 p-6 rounded-xl shadow-sm border border-surface-200 dark:border-surface-800 transition-colors">
+            <form class="flex flex-col sm:flex-row gap-4" action="#" method="GET">
+                <label for="search" class="sr-only">Buscar produtos</label>
+                <input type="text" id="search" placeholder="Digite o nome do produto..."
+                    class="flex-1 text-lg py-3 px-4 border-2 border-surface-200 dark:border-surface-900 rounded-lg focus:border-brand focus:ring-1 focus:ring-brand bg-white dark:bg-surface-900 text-text-main dark:text-text-light w-full">
+                <button type="submit"
+                    class="bg-text-main dark:bg-brand text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-text-muted dark:hover:bg-brand-dark transition-colors flex justify-center items-center gap-2">
+                    🔍 Buscar
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16">
+
+        <section id="produtos">
+            <h2
+                class="text-2xl md:text-3xl font-bold mb-8 text-center border-b-4 border-brand pb-2 inline-block mx-auto flex justify-center w-fit">
+                Produtos em Destaque</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <article
+                    class="bg-white dark:bg-surface-800 rounded-xl shadow-sm border border-surface-200 dark:border-surface-800 flex flex-col hover:shadow-md transition-shadow">
+                    <div class="p-8 text-6xl text-center bg-surface-50 dark:bg-surface-900 rounded-t-xl"
+                        aria-hidden="true">📱</div>
+                    <div class="p-6 flex flex-col flex-1 gap-4">
+                        <h3 class="text-xl font-bold">Smartphone XYZ</h3>
+                        <p class="text-text-muted dark:text-text-mutedLight flex-1">Tela grande, letras ajustáveis e
+                            muito fácil de usar no dia a dia.</p>
+                        <div>
+                            <span class="text-text-muted dark:text-text-mutedLight line-through text-base">R$
+                                1.999</span>
+                            <span class="block text-2xl font-bold text-brand dark:text-brand-light">R$ 1.499</span>
+                        </div>
+                        <button
+                            class="w-full bg-brand text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark transition-colors">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white dark:bg-surface-800 rounded-xl shadow-sm border border-surface-200 dark:border-surface-800 flex flex-col hover:shadow-md transition-shadow">
+                    <div class="p-8 text-6xl text-center bg-surface-50 dark:bg-surface-900 rounded-t-xl"
+                        aria-hidden="true">💻</div>
+                    <div class="p-6 flex flex-col flex-1 gap-4">
+                        <h3 class="text-xl font-bold">Notebook ABC</h3>
+                        <p class="text-text-muted dark:text-text-mutedLight flex-1">Rápido, tela com excelente brilho e
+                            ótimo para chamadas de vídeo.</p>
+                        <div>
+                            <span class="text-text-muted dark:text-text-mutedLight line-through text-base">R$
+                                3.999</span>
+                            <span class="block text-2xl font-bold text-brand dark:text-brand-light">R$ 2.999</span>
+                        </div>
+                        <button
+                            class="w-full bg-brand text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark transition-colors">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white dark:bg-surface-800 rounded-xl shadow-sm border border-surface-200 dark:border-surface-800 flex flex-col hover:shadow-md transition-shadow">
+                    <div class="p-8 text-6xl text-center bg-surface-50 dark:bg-surface-900 rounded-t-xl"
+                        aria-hidden="true">🎧</div>
+                    <div class="p-6 flex flex-col flex-1 gap-4">
+                        <h3 class="text-xl font-bold">Fone de Ouvido</h3>
+                        <p class="text-text-muted dark:text-text-mutedLight flex-1">Sem fios, super confortável e com
+                            som limpo e cristalino.</p>
+                        <div>
+                            <span class="text-text-muted dark:text-text-mutedLight line-through text-base">R$ 599</span>
+                            <span class="block text-2xl font-bold text-brand dark:text-brand-light">R$ 399</span>
+                        </div>
+                        <button
+                            class="w-full bg-brand text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark transition-colors">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section
+            class="bg-surface-100 dark:bg-surface-800 rounded-xl p-8 border border-surface-200 dark:border-surface-800">
+            <h2 class="text-2xl font-bold mb-8 text-center">Por que comprar com a gente?</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="flex items-center gap-4 bg-white dark:bg-surface-900 p-4 rounded-lg shadow-sm">
+                    <span class="text-3xl" aria-hidden="true">🚚</span>
+                    <span class="font-medium">Frete grátis acima de R$ 500</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white dark:bg-surface-900 p-4 rounded-lg shadow-sm">
+                    <span class="text-3xl" aria-hidden="true">💳</span>
+                    <span class="font-medium">Pague em até 12 vezes</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white dark:bg-surface-900 p-4 rounded-lg shadow-sm">
+                    <span class="text-3xl" aria-hidden="true">🛡️</span>
+                    <span class="font-medium">Garantia estendida</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white dark:bg-surface-900 p-4 rounded-lg shadow-sm">
+                    <span class="text-3xl" aria-hidden="true">🔄</span>
+                    <span class="font-medium">Troca fácil em 30 dias</span>
+                </div>
+                <div
+                    class="flex items-center gap-4 bg-white dark:bg-surface-900 p-4 rounded-lg shadow-sm sm:col-span-2 lg:col-span-1">
+                    <span class="text-3xl" aria-hidden="true">📞</span>
+                    <span class="font-medium">Atendimento humano 24h</span>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="bg-white dark:bg-surface-800 rounded-xl p-8 text-center border border-surface-200 dark:border-surface-800 shadow-sm">
+            <h2 class="text-2xl font-bold mb-4">Receba Nossas Ofertas</h2>
+            <p class="text-text-muted dark:text-text-mutedLight mb-6 max-w-2xl mx-auto">Cadastre seu e-mail para receber
+                as promoções diretamente na sua caixa de entrada.</p>
+
+            <form class="max-w-xl mx-auto flex flex-col sm:flex-row gap-4">
+                <label for="email" class="sr-only">Seu e-mail</label>
+                <input type="email" id="email" placeholder="seu.nome@email.com" required
+                    class="flex-1 py-3 px-4 border-2 border-surface-200 dark:border-surface-900 rounded-lg focus:border-brand focus:ring-1 focus:ring-brand bg-surface-50 dark:bg-surface-900 text-text-main dark:text-text-light w-full">
+                <button type="submit"
+                    class="bg-text-main dark:bg-brand text-white font-bold py-3 px-6 rounded-lg hover:bg-text-muted dark:hover:bg-brand-dark transition-colors whitespace-nowrap">
+                    Cadastrar E-mail
+                </button>
+            </form>
+        </section>
+
+        <section class="text-center py-6">
+            <h2 class="text-2xl font-bold mb-6">Precisa de Ajuda?</h2>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button
+                    class="bg-white dark:bg-surface-800 border-2 border-brand dark:border-brand-light text-brand dark:text-brand-light font-bold py-3 px-6 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-900 transition-colors flex items-center justify-center gap-2">
+                    📞 Ligar para Suporte
+                </button>
+                <button
+                    class="bg-white dark:bg-surface-800 border-2 border-brand dark:border-brand-light text-brand dark:text-brand-light font-bold py-3 px-6 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-900 transition-colors flex items-center justify-center gap-2">
+                    💬 Chat Online
+                </button>
+                <button
+                    class="bg-white dark:bg-surface-800 border-2 border-brand dark:border-brand-light text-brand dark:text-brand-light font-bold py-3 px-6 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-900 transition-colors flex items-center justify-center gap-2">
+                    ❓ Dúvidas Frequentes
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-surface-800 dark:bg-surface-900 text-text-light pt-12 pb-6 px-4 border-t-4 border-brand">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-brand-light">Endereço da Loja</h3>
+                <address class="not-italic text-surface-200">
+                    Rua Exemplo, 123<br>
+                    Bairro Central, São Paulo - SP<br>
+                    CEP: 01234-567
+                </address>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-brand-light">Fale Conosco</h3>
+                <ul class="text-surface-200 space-y-2">
+                    <li>Telefone: <a href="tel:+551100000000" class="hover:text-white underline">(11) 0000-0000</a></li>
+                    <li>Email: <a href="mailto:contato@techstore.com"
+                            class="hover:text-white underline">contato@techstore.com</a></li>
+                    <li>Seg a Sex, das 9h às 18h</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-brand-light">Links Importantes</h3>
+                <ul class="text-surface-200 space-y-2">
+                    <li><a href="#" class="hover:text-white underline">Termos de Uso</a></li>
+                    <li><a href="#" class="hover:text-white underline">Política de Privacidade</a></li>
+                    <li><a href="#" class="hover:text-white underline">Trocas e Devoluções</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-surface-600 pt-6 text-center text-surface-400 text-sm">
+            <p>© 2024 TechStore Online - CNPJ 00.000.000/0001-00. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile
+        const btnMobile = document.getElementById('mobile-menu-btn');
+        const menuMobile = document.getElementById('mobile-menu');
+
+        btnMobile.addEventListener('click', () => {
+            menuMobile.classList.toggle('open');
+            btnMobile.setAttribute('aria-expanded', menuMobile.classList.contains('open'));
+        });
+
+        // Modo Escuro e Ícone
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Atualiza visualmente o ícone dependendo do tema atual
+        function updateIcon() {
+            if (htmlElement.classList.contains('dark')) {
+                themeIcon.textContent = '☀️';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        }
+
+        // Aplica o tema ao carregar
+        function applyTheme() {
+            try {
+                if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    htmlElement.classList.add('dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                }
+            } catch (e) {
+                // Caso o arquivo seja rodado localmente sem servidor, define com base no sistema do usuário
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    htmlElement.classList.add('dark');
+                }
+            }
+            updateIcon(); // Atualiza o ícone
+        }
+
+        applyTheme();
+
+        // Ouve o botão de clique
+        themeToggleBtn.addEventListener('click', function () {
+            htmlElement.classList.toggle('dark');
+            updateIcon(); // Troca o ícone na hora do clique
+
+            try {
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } catch (e) {
+                // Previne o "quebra" do JS em navegadores que bloqueiam localStorage em arquivos locais
+                console.warn('O salvamento do tema no navegador foi bloqueado. O tema visual ainda funcionará.');
+            }
+        });
+    </script>
+</body>
+
+</html>
