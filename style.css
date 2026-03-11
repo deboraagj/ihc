@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: "Courier New", monospace;
+    background: #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Terminal */
+
+.terminal {
+    width: 700px;
+    background: #1f2933;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+/* Cabeçalho */
+
+.terminal-header h1 {
+    margin: 0;
+    color: #1f5fbf;
+    /* azul SENAI */
+    font-size: 28px;
+}
+
+.instituicao {
+    color: #ff6a00;
+    /* laranja SENAI */
+    margin-top: 5px;
+}
+
+/* Informações */
+
+.info {
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+.info strong {
+    color: #4ea1ff;
+}
+
+/* Linha separadora */
+
+.linha {
+    height: 2px;
+    background: #444;
+    margin: 20px 0;
+}
+
+/* Prompt estilo terminal */
+
+.prompt {
+    color: #4ea1ff;
+    margin-bottom: 10px;
+}
+
+/* Botão */
+
+.btn {
+    display: inline-block;
+    padding: 12px 18px;
+    background: #1f5fbf;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #ff6a00;
+}
