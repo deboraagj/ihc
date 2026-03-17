@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprender Brincando</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&amp;family=Nunito:wght@400;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .font-heading {
+            font-family: 'Baloo 2', cursive;
+        }
+
+        @keyframes floatBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-5deg);
+            }
+
+            75% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .anim-float {
+            animation: floatBounce 3s ease-in-out infinite;
+        }
+
+        .anim-float-delay {
+            animation: floatBounce 3s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .anim-float-delay2 {
+            animation: floatBounce 3s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .anim-wiggle:hover {
+            animation: wiggle 0.4s ease-in-out;
+        }
+
+        .anim-pop {
+            animation: popIn 0.5s ease-out forwards;
+        }
+
+        .anim-slide {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .anim-sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .rainbow-bg {
+            background: linear-gradient(135deg, #FFE066, #FF6B6B, #48DBFB, #1DD1A1, #FF9FF3, #FFE066);
+            background-size: 300% 300%;
+            animation: rainbow 6s ease infinite;
+        }
+
+        .nav-btn {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.08) translateY(-4px);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .card-interactive {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card-interactive:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .page-transition {
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .quiz-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            transform: scale(1.05);
+        }
+
+        .star-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 2rem;
+            animation: popIn 0.6s ease-out forwards;
+        }
+
+        .story-card {
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF9E6;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FFD93D;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFB800;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sunny: '#FFD93D',
+                        ocean: '#48DBFB',
+                        forest: '#1DD1A1',
+                        sunset: '#FF6B6B',
+                        grape: '#A29BFE',
+                        candy: '#FF9FF3',
+                        cream: '#FFF9E6',
+                        bark: '#2D3436'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+    <div id="app" class="w-full h-full overflow-auto" style="background: #FFF9E6;">
+        <!-- Floating Background Decorations -->
+        <div id="bg-decor" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index:0;">
+            <div class="bubble anim-float" style="width:120px;height:120px;background:#FFD93D;top:10%;left:5%;"></div>
+            <div class="bubble anim-float-delay" style="width:80px;height:80px;background:#48DBFB;top:30%;right:8%;">
+            </div>
+            <div class="bubble anim-float-delay2"
+                style="width:100px;height:100px;background:#1DD1A1;bottom:20%;left:15%;"></div>
+            <div class="bubble anim-float" style="width:60px;height:60px;background:#FF9FF3;top:60%;right:20%;"></div>
+            <div class="bubble anim-float-delay" style="width:90px;height:90px;background:#A29BFE;bottom:10%;right:5%;">
+            </div>
+            <div class="bubble anim-float-delay2" style="width:70px;height:70px;background:#FF6B6B;top:5%;right:40%;">
+            </div>
+        </div><!-- Navigation Bar -->
+        <header id="main-nav" class="sticky top-0 z-50 rainbow-bg shadow-lg">
+            <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2"><button
+                    onclick="navigate('home')"
+                    class="font-heading text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg hover:scale-105 transition-transform cursor-pointer flex items-center gap-2">
+                    <span class="text-3xl md:text-4xl">⭐</span> <span id="nav-title">Aprender Brincando</span> </button>
+                <div class="flex gap-2 flex-wrap"><button onclick="navigate('home')"
+                        class="nav-btn bg-white/30 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-full text-sm md:text-base flex items-center gap-1.5 border-2 border-white/40"
+                        data-nav="home"> 🏠 <span class="hidden sm:inline">Início</span> </button> <button
+                        onclick="navigate('activities')"
+                        class="nav-btn bg-white/30 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-full text-sm md:text-base flex items-center gap-1.5 border-2 border-white/40"
+                        data-nav="activities"> 🎮 <span class="hidden sm:inline">Atividades</span> </button> <button
+                        onclick="navigate('stories')"
+                        class="nav-btn bg-white/30 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-full text-sm md:text-base flex items-center gap-1.5 border-2 border-white/40"
+                        data-nav="stories"> 📖 <span class="hidden sm:inline">Histórias</span> </button> <button
+                        onclick="navigate('contact')"
+                        class="nav-btn bg-white/30 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-full text-sm md:text-base flex items-center gap-1.5 border-2 border-white/40"
+                        data-nav="contact"> 📞 <span class="hidden sm:inline">Contato</span> </button>
+                </div>
+            </nav>
+        </header><!-- PAGES CONTAINER -->
+        <main class="relative z-10"><!-- HOME PAGE -->
+            <section id="page-home" class="page-section">
+                <div class="max-w-6xl mx-auto px-4 py-8 md:py-12"><!-- Hero -->
+                    <div class="text-center mb-10 anim-pop">
+                        <div class="text-6xl md:text-8xl mb-4 anim-float">
+                            🌟
+                        </div>
+                        <h1 id="hero-title"
+                            class="font-heading text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sunset via-grape to-ocean leading-tight mb-4">
+                            Aprender Brincando</h1>
+                        <p id="hero-message" class="text-xl md:text-2xl font-bold text-bark/70 mb-8 max-w-lg mx-auto">
+                            Bem-vindo! Vamos aprender se divertindo! 🎉</p>
+                        <div class="flex justify-center gap-2 mb-6"><span class="text-3xl anim-float">🦁</span> <span
+                                class="text-3xl anim-float-delay">🐵</span> <span
+                                class="text-3xl anim-float-delay2">🦋</span> <span class="text-3xl anim-float">🐢</span>
+                            <span class="text-3xl anim-float-delay">🐙</span>
+                        </div>
+                    </div><!-- Navigation Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12"><button
+                            onclick="navigate('activities')"
+                            class="card-interactive bg-gradient-to-br from-sunny to-yellow-300 rounded-3xl p-8 shadow-xl border-4 border-yellow-400 text-center group">
+                            <div class="text-6xl mb-4 group-hover:animate-bounce">
+                                🎮
+                            </div>
+                            <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark mb-2">Atividades</h2>
+                            <p class="text-bark/70 font-semibold text-sm md:text-base">Jogos e desafios divertidos!</p>
+                            <div
+                                class="mt-4 bg-white/50 rounded-full px-4 py-2 inline-block font-bold text-bark text-sm">
+                                Vamos Jogar! →
+                            </div>
+                        </button> <button onclick="navigate('stories')"
+                            class="card-interactive bg-gradient-to-br from-ocean to-blue-300 rounded-3xl p-8 shadow-xl border-4 border-blue-400 text-center group">
+                            <div class="text-6xl mb-4 group-hover:animate-bounce">
+                                📖
+                            </div>
+                            <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark mb-2">Histórias</h2>
+                            <p class="text-bark/70 font-semibold text-sm md:text-base">Histórias mágicas para ler!</p>
+                            <div
+                                class="mt-4 bg-white/50 rounded-full px-4 py-2 inline-block font-bold text-bark text-sm">
+                                Ler Agora! →
+                            </div>
+                        </button> <button onclick="navigate('contact')"
+                            class="card-interactive bg-gradient-to-br from-forest to-green-300 rounded-3xl p-8 shadow-xl border-4 border-green-400 text-center group">
+                            <div class="text-6xl mb-4 group-hover:animate-bounce">
+                                📞
+                            </div>
+                            <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark mb-2">Contato</h2>
+                            <p class="text-bark/70 font-semibold text-sm md:text-base">Fale com a gente!</p>
+                            <div
+                                class="mt-4 bg-white/50 rounded-full px-4 py-2 inline-block font-bold text-bark text-sm">
+                                Conhecer! →
+                            </div>
+                        </button>
+                    </div><!-- Fun Illustrations -->
+                    <div class="text-center">
+                        <div
+                            class="inline-flex items-end gap-4 bg-white/60 rounded-3xl px-8 py-6 shadow-lg backdrop-blur-sm border-2 border-sunny/30">
+                            <div class="text-center">
+                                <div class="text-4xl anim-float">
+                                    📚
+                                </div>
+                                <p class="text-xs font-bold text-bark/60 mt-1">Livros</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl anim-float-delay">
+                                    ✏️
+                                </div>
+                                <p class="text-xs font-bold text-bark/60 mt-1">Lápis</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl anim-float-delay2">
+                                    🎨
+                                </div>
+                                <p class="text-xs font-bold text-bark/60 mt-1">Tintas</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl anim-float">
+                                    🔬
+                                </div>
+                                <p class="text-xs font-bold text-bark/60 mt-1">Ciência</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl anim-float-delay">
+                                    🌍
+                                </div>
+                                <p class="text-xs font-bold text-bark/60 mt-1">Mundo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- ACTIVITIES PAGE -->
+            <section id="page-activities" class="page-section hidden">
+                <div class="max-w-6xl mx-auto px-4 py-8">
+                    <div class="text-center mb-8 anim-pop">
+                        <h1
+                            class="font-heading text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sunset to-grape mb-2">
+                            🎮 Atividades Divertidas!</h1>
+                        <p class="text-lg font-bold text-bark/60">Escolha uma atividade e divirta-se aprendendo!</p>
+                    </div><!-- Activity Tabs -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-8"><button onclick="showActivity('guess')"
+                            class="activity-tab nav-btn bg-gradient-to-r from-sunny to-yellow-300 text-bark font-extrabold px-5 py-3 rounded-2xl text-base md:text-lg shadow-lg border-3 border-yellow-400"
+                            data-tab="guess"> 🧩 Adivinhe! </button> <button onclick="showActivity('animals')"
+                            class="activity-tab nav-btn bg-gradient-to-r from-forest to-green-300 text-bark font-extrabold px-5 py-3 rounded-2xl text-base md:text-lg shadow-lg border-3 border-green-400"
+                            data-tab="animals"> 🐾 Animais </button> <button onclick="showActivity('quiz')"
+                            class="activity-tab nav-btn bg-gradient-to-r from-ocean to-blue-300 text-bark font-extrabold px-5 py-3 rounded-2xl text-base md:text-lg shadow-lg border-3 border-blue-400"
+                            data-tab="quiz"> ❓ Quiz </button> <button onclick="showActivity('math')"
+                            class="activity-tab nav-btn bg-gradient-to-r from-grape to-purple-300 text-bark font-extrabold px-5 py-3 rounded-2xl text-base md:text-lg shadow-lg border-3 border-purple-400"
+                            data-tab="math"> ➕ Matemática </button>
+                    </div><!-- GUESS WORD -->
+                    <div id="activity-guess" class="activity-content page-transition">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-sunny">
+                                <div class="text-center mb-6">
+                                    <div class="text-5xl mb-3 anim-wiggle inline-block">
+                                        🧩
+                                    </div>
+                                    <h2 class="font-heading text-3xl font-extrabold text-bark">Adivinhe a Palavra!</h2>
+                                </div>
+                                <div id="guess-game" class="text-center">
+                                    <div id="guess-emoji" class="text-6xl md:text-8xl mb-4 anim-float"></div>
+                                    <p id="guess-hint"
+                                        class="text-lg md:text-xl font-bold text-bark/80 mb-6 bg-sunny/20 rounded-2xl p-4 inline-block">
+                                    </p>
+                                    <div id="guess-options" class="grid grid-cols-2 gap-3 max-w-md mx-auto mb-4"></div>
+                                    <div id="guess-feedback" class="text-2xl font-extrabold mt-4 min-h-[40px]"></div>
+                                    <button onclick="nextGuess()" id="guess-next"
+                                        class="mt-4 nav-btn bg-gradient-to-r from-sunny to-yellow-400 text-bark font-extrabold px-8 py-3 rounded-full text-lg shadow-lg hidden">
+                                        Próxima! 🎯 </button>
+                                </div><!-- Progress -->
+                                <div class="flex justify-center gap-2 mt-6" id="guess-progress"></div>
+                            </div>
+                        </div>
+                    </div><!-- ANIMAL FACTS -->
+                    <div id="activity-animals" class="activity-content hidden">
+                        <div class="max-w-3xl mx-auto page-transition">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="animal-cards">
+                            </div>
+                            <div class="text-center mt-6"><button onclick="loadMoreAnimals()"
+                                    class="nav-btn bg-gradient-to-r from-forest to-green-300 text-bark font-extrabold px-8 py-3 rounded-full text-lg shadow-lg">
+                                    🔄 Mais Curiosidades! </button>
+                            </div>
+                        </div>
+                    </div><!-- QUIZ -->
+                    <div id="activity-quiz" class="activity-content hidden">
+                        <div class="max-w-2xl mx-auto page-transition">
+                            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-ocean">
+                                <div class="text-center mb-4">
+                                    <div class="text-5xl mb-2">
+                                        ❓
+                                    </div>
+                                    <h2 class="font-heading text-3xl font-extrabold text-bark">Mini Quiz!</h2>
+                                    <p id="quiz-score" class="font-bold text-ocean text-lg mt-1">⭐ Acertos: 0</p>
+                                </div>
+                                <div id="quiz-container">
+                                    <p id="quiz-question"
+                                        class="text-xl md:text-2xl font-extrabold text-bark text-center mb-6 bg-ocean/10 rounded-2xl p-4">
+                                    </p>
+                                    <div id="quiz-options" class="space-y-3 max-w-md mx-auto"></div>
+                                    <div id="quiz-feedback"
+                                        class="text-center text-2xl font-extrabold mt-4 min-h-[40px]"></div>
+                                    <div class="text-center"><button onclick="nextQuiz()" id="quiz-next"
+                                            class="mt-4 nav-btn bg-gradient-to-r from-ocean to-blue-400 text-white font-extrabold px-8 py-3 rounded-full text-lg shadow-lg hidden">
+                                            Próxima Pergunta! 🚀 </button>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center gap-2 mt-6" id="quiz-progress"></div>
+                            </div>
+                        </div>
+                    </div><!-- MATH -->
+                    <div id="activity-math" class="activity-content hidden">
+                        <div class="max-w-2xl mx-auto page-transition">
+                            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-grape">
+                                <div class="text-center mb-4">
+                                    <div class="text-5xl mb-2 anim-wiggle inline-block">
+                                        🔢
+                                    </div>
+                                    <h2 class="font-heading text-3xl font-extrabold text-bark">Desafio Matemático!</h2>
+                                    <p id="math-score" class="font-bold text-grape text-lg mt-1">⭐ Acertos: 0</p>
+                                </div>
+                                <div id="math-container" class="text-center">
+                                    <div
+                                        class="bg-gradient-to-br from-grape/10 to-candy/10 rounded-3xl p-8 mb-6 inline-block min-w-[280px]">
+                                        <p id="math-problem"
+                                            class="font-heading text-5xl md:text-6xl font-extrabold text-bark"></p>
+                                    </div>
+                                    <div id="math-options" class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-4"></div>
+                                    <div id="math-feedback" class="text-2xl font-extrabold mt-4 min-h-[40px]"></div>
+                                    <button onclick="nextMath()" id="math-next"
+                                        class="mt-4 nav-btn bg-gradient-to-r from-grape to-purple-400 text-white font-extrabold px-8 py-3 rounded-full text-lg shadow-lg hidden">
+                                        Próximo Desafio! 🧮 </button>
+                                </div>
+                                <div class="flex justify-center gap-2 mt-6" id="math-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- STORIES PAGE -->
+            <section id="page-stories" class="page-section hidden">
+                <div class="max-w-5xl mx-auto px-4 py-8">
+                    <div class="text-center mb-8 anim-pop">
+                        <h1
+                            class="font-heading text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-ocean to-forest mb-2">
+                            📖 Histórias Mágicas!</h1>
+                        <p class="text-lg font-bold text-bark/60">Clique em uma história para ler!</p>
+                    </div>
+                    <div id="stories-list" class="space-y-6"><!-- Story 1 -->
+                        <div class="story-card bg-white rounded-3xl shadow-xl border-4 border-sunset overflow-hidden">
+                            <button onclick="toggleStory(1)"
+                                class="w-full text-left p-6 md:p-8 flex items-center gap-4 md:gap-6">
+                                <div class="text-5xl md:text-6xl flex-shrink-0 anim-wiggle">
+                                    🐰
+                                </div>
+                                <div class="flex-1">
+                                    <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark">O Coelhinho
+                                        Corajoso</h2>
+                                    <p class="text-bark/60 font-semibold mt-1">Uma história sobre coragem e estrelas ✨
+                                    </p>
+                                </div>
+                                <div id="story-arrow-1" class="text-3xl text-bark/40 transition-transform duration-300">
+                                    ▼
+                                </div>
+                            </button>
+                            <div id="story-content-1" class="hidden px-6 md:px-8 pb-8">
+                                <div class="bg-gradient-to-br from-sunset/10 to-candy/10 rounded-2xl p-6 md:p-8">
+                                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                                        <div class="text-center flex-shrink-0">
+                                            <div class="text-7xl mb-2">
+                                                🐰
+                                            </div>
+                                            <div class="flex gap-1 justify-center"><span
+                                                    class="text-2xl anim-sparkle">⭐</span> <span
+                                                    class="text-2xl anim-sparkle" style="animation-delay:0.3s">🌙</span>
+                                                <span class="text-2xl anim-sparkle"
+                                                    style="animation-delay:0.6s">⭐</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-lg md:text-xl font-semibold text-bark/80 leading-relaxed">
+                                            <p class="mb-4">Um coelhinho pequenino tinha muito medo do escuro. Toda
+                                                noite, ele se escondia debaixo das folhas e fechava os olhos bem
+                                                apertados. 🍃</p>
+                                            <p class="mb-4">Um dia, ele decidiu ser corajoso. Com o coração batendo bem
+                                                forte, ele saiu da toca e olhou para cima... 💫</p>
+                                            <p class="mb-4">E descobriu um céu cheio de <strong
+                                                    class="text-sunset">estrelas brilhantes</strong>! Era a coisa mais
+                                                bonita que ele já tinha visto! ✨🌟⭐</p>
+                                            <p
+                                                class="bg-white/60 rounded-xl p-4 text-center font-bold text-sunset border-2 border-sunset/20">
+                                                🌟 "Coragem é tentar, mesmo com medo!" 🌟</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Story 2 -->
+                        <div class="story-card bg-white rounded-3xl shadow-xl border-4 border-sunny overflow-hidden">
+                            <button onclick="toggleStory(2)"
+                                class="w-full text-left p-6 md:p-8 flex items-center gap-4 md:gap-6">
+                                <div class="text-5xl md:text-6xl flex-shrink-0 anim-wiggle">
+                                    🦁
+                                </div>
+                                <div class="flex-1">
+                                    <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark">A Amizade do
+                                        Leão e do Ratinho</h2>
+                                    <p class="text-bark/60 font-semibold mt-1">Uma história sobre amizade e ajuda 💛</p>
+                                </div>
+                                <div id="story-arrow-2" class="text-3xl text-bark/40 transition-transform duration-300">
+                                    ▼
+                                </div>
+                            </button>
+                            <div id="story-content-2" class="hidden px-6 md:px-8 pb-8">
+                                <div class="bg-gradient-to-br from-sunny/10 to-yellow-100 rounded-2xl p-6 md:p-8">
+                                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                                        <div class="text-center flex-shrink-0">
+                                            <div class="text-6xl">
+                                                🦁
+                                            </div>
+                                            <div class="text-xl my-1">
+                                                ❤️
+                                            </div>
+                                            <div class="text-4xl">
+                                                🐭
+                                            </div>
+                                        </div>
+                                        <div class="text-lg md:text-xl font-semibold text-bark/80 leading-relaxed">
+                                            <p class="mb-4">Um grande leão encontrou um ratinho muito pequeno. Em vez de
+                                                assustá-lo, o leão o ajudou a encontrar comida. 🍎</p>
+                                            <p class="mb-4">Algum tempo depois, o leão ficou preso em uma armadilha! Ele
+                                                rugiu pedindo ajuda, e adivinha quem apareceu? O ratinho! 🐭✨</p>
+                                            <p class="mb-4">Com seus dentinhos afiados, o ratinho roeu a corda e <strong
+                                                    class="text-sunny">libertou o leão</strong>!</p>
+                                            <p
+                                                class="bg-white/60 rounded-xl p-4 text-center font-bold text-yellow-600 border-2 border-sunny/30">
+                                                💛 "Todos podem ajudar, não importa o tamanho!" 💛</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Story 3 -->
+                        <div class="story-card bg-white rounded-3xl shadow-xl border-4 border-grape overflow-hidden">
+                            <button onclick="toggleStory(3)"
+                                class="w-full text-left p-6 md:p-8 flex items-center gap-4 md:gap-6">
+                                <div class="text-5xl md:text-6xl flex-shrink-0 anim-wiggle">
+                                    🌟
+                                </div>
+                                <div class="flex-1">
+                                    <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-bark">A Estrelinha
+                                        Perdida</h2>
+                                    <p class="text-bark/60 font-semibold mt-1">Uma história sobre aventura e amigos 💜
+                                    </p>
+                                </div>
+                                <div id="story-arrow-3" class="text-3xl text-bark/40 transition-transform duration-300">
+                                    ▼
+                                </div>
+                            </button>
+                            <div id="story-content-3" class="hidden px-6 md:px-8 pb-8">
+                                <div class="bg-gradient-to-br from-grape/10 to-purple-100 rounded-2xl p-6 md:p-8">
+                                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                                        <div class="text-center flex-shrink-0">
+                                            <div class="text-6xl anim-sparkle">
+                                                ⭐
+                                            </div>
+                                            <div class="flex gap-1 justify-center mt-2"><span class="text-2xl">🌸</span>
+                                                <span class="text-2xl">🌳</span> <span class="text-2xl">🏔️</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-lg md:text-xl font-semibold text-bark/80 leading-relaxed">
+                                            <p class="mb-4">Uma noite, uma estrelinha escorregou do céu e caiu
+                                                suavemente na Terra. Ela estava perdida e com medo! 😢</p>
+                                            <p class="mb-4">Mas logo fez amigos: uma borboleta 🦋, uma joaninha 🐞 e um
+                                                sapinho 🐸. Juntos, eles viveram aventuras incríveis!</p>
+                                            <p class="mb-4">No final, a estrelinha encontrou o caminho de volta para o
+                                                céu, <strong class="text-grape">feliz e cheia de histórias</strong> para
+                                                contar às outras estrelas.</p>
+                                            <p
+                                                class="bg-white/60 rounded-xl p-4 text-center font-bold text-grape border-2 border-grape/20">
+                                                💜 "Amigos são a maior aventura!" 💜</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- CONTACT PAGE -->
+            <section id="page-contact" class="page-section hidden">
+                <div class="max-w-3xl mx-auto px-4 py-8">
+                    <div class="text-center mb-8 anim-pop">
+                        <h1
+                            class="font-heading text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-forest to-ocean mb-2">
+                            📞 Contato</h1>
+                    </div>
+                    <div
+                        class="bg-white rounded-3xl p-8 md:p-10 shadow-xl border-4 border-forest text-center page-transition">
+                        <div class="text-6xl mb-4">
+                            🏫
+                        </div>
+                        <h2 class="font-heading text-3xl font-extrabold text-bark mb-2">Aprender Brincando</h2>
+                        <div class="bg-forest/10 rounded-2xl p-4 mb-6 inline-block">
+                            <p class="font-bold text-bark/70 text-lg">🏢 KidsTech Soluções Digitais</p>
+                        </div>
+                        <p id="contact-description" class="text-lg font-semibold text-bark/70 mb-8 max-w-md mx-auto">Um
+                            site educativo para crianças aprenderem de forma divertida.</p>
+                        <div class="bg-gradient-to-br from-sunny/20 to-ocean/20 rounded-2xl p-6 mb-6">
+                            <h3 class="font-heading text-2xl font-extrabold text-bark mb-4">👩‍💻 Equipe Desenvolvedora
+                            </h3>
+                            <div class="bg-white rounded-xl p-4 shadow-md inline-block">
+                                <div class="text-4xl mb-2">
+                                    👩‍🎓
+                                </div>
+                                <p id="contact-developer" class="font-extrabold text-bark text-lg">Débora Aragão Gomes
+                                    de Jesus</p>
+                                <p class="text-bark/50 font-semibold text-sm mt-1">Desenvolvedora</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-4 flex-wrap">
+                            <div class="bg-sunset/10 rounded-2xl p-4 text-center flex-1 min-w-[140px] max-w-[200px]">
+                                <div class="text-3xl mb-2">
+                                    🎯
+                                </div>
+                                <p class="font-bold text-bark/70 text-sm">Educação divertida</p>
+                            </div>
+                            <div class="bg-ocean/10 rounded-2xl p-4 text-center flex-1 min-w-[140px] max-w-[200px]">
+                                <div class="text-3xl mb-2">
+                                    🧒
+                                </div>
+                                <p class="font-bold text-bark/70 text-sm">Para 6 a 9 anos</p>
+                            </div>
+                            <div class="bg-grape/10 rounded-2xl p-4 text-center flex-1 min-w-[140px] max-w-[200px]">
+                                <div class="text-3xl mb-2">
+                                    💡
+                                </div>
+                                <p class="font-bold text-bark/70 text-sm">Aprendizado interativo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <p class="text-bark/40 font-bold text-sm">Feito com ❤️ para crianças que amam aprender!</p>
+                    </div>
+                </div>
+            </section>
+        </main><!-- Footer -->
+        <footer class="relative z-10 text-center py-6 px-4">
+            <div class="flex justify-center gap-2 mb-3"><span class="text-2xl">⭐</span> <span class="text-2xl">📚</span>
+                <span class="text-2xl">🎮</span> <span class="text-2xl">🌟</span>
+            </div>
+            <p class="font-bold text-bark/40 text-sm">© 2025 Aprender Brincando • KidsTech Soluções Digitais</p>
+        </footer>
+    </div>
+    <script>
+        // ===== DATA =====
+        const guessData = [
+            { emoji: '🐵', hint: 'Sou amarelo e gosto de banana. Quem sou eu?', answer: 'Macaco', options: ['Gato', 'Macaco', 'Pássaro', 'Cachorro'] },
+            { emoji: '🐘', hint: 'Tenho uma tromba grande e sou muito pesado!', answer: 'Elefante', options: ['Elefante', 'Hipopótamo', 'Rinoceronte', 'Urso'] },
+            { emoji: '🐝', hint: 'Faço mel e tenho listras amarelas e pretas!', answer: 'Abelha', options: ['Vespa', 'Mosca', 'Abelha', 'Borboleta'] },
+            { emoji: '🐧', hint: 'Vivo no gelo e não consigo voar!', answer: 'Pinguim', options: ['Foca', 'Pinguim', 'Gaivota', 'Urso Polar'] },
+            { emoji: '🦒', hint: 'Tenho o pescoço mais longo do mundo animal!', answer: 'Girafa', options: ['Cavalo', 'Avestruz', 'Girafa', 'Camelo'] },
+        ];
+
+        const animalFacts = [
+            { emoji: '🐙', fact: 'O polvo tem 3 corações!', color: 'sunset' },
+            { emoji: '🦁', fact: 'O leão é chamado de rei da selva!', color: 'sunny' },
+            { emoji: '🐬', fact: 'Os golfinhos dormem com um olho aberto!', color: 'ocean' },
+            { emoji: '🦋', fact: 'As borboletas sentem sabor com os pés!', color: 'candy' },
+            { emoji: '🐢', fact: 'Tartarugas podem viver mais de 100 anos!', color: 'forest' },
+            { emoji: '🦈', fact: 'Os tubarões existem antes dos dinossauros!', color: 'grape' },
+            { emoji: '🐝', fact: 'Abelhas batem as asas 200 vezes por segundo!', color: 'sunny' },
+            { emoji: '🦜', fact: 'Papagaios podem aprender mais de 100 palavras!', color: 'forest' },
+            { emoji: '🐘', fact: 'Elefantes são os únicos animais que não pulam!', color: 'sunset' },
+            { emoji: '🦉', fact: 'Corujas conseguem girar a cabeça quase toda!', color: 'grape' },
+        ];
+
+        const quizData = [
+            { question: 'Qual é o maior animal do mundo?', options: ['Elefante', 'Baleia Azul', 'Girafa'], answer: 'Baleia Azul' },
+            { question: 'Quantas patas tem uma aranha?', options: ['6', '8', '10'], answer: '8' },
+            { question: 'Qual planeta é conhecido como Planeta Vermelho?', options: ['Júpiter', 'Marte', 'Vênus'], answer: 'Marte' },
+            { question: 'Quantos ossos tem o corpo humano?', options: ['106', '206', '306'], answer: '206' },
+            { question: 'Qual é o animal mais rápido do mundo?', options: ['Leão', 'Águia', 'Guepardo'], answer: 'Guepardo' },
+        ];
+
+        // ===== STATE =====
+        let currentGuess = 0, guessScore = 0;
+        let currentQuiz = 0, quizScore = 0;
+        let currentMath = 0, mathScore = 0;
+        let animalPage = 0;
+        let mathProblems = [];
+        let currentPage = 'home';
+
+        // ===== NAVIGATION =====
+        function navigate(page) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+            const target = document.getElementById('page-' + page);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('page-transition');
+                setTimeout(() => target.classList.remove('page-transition'), 400);
+            }
+            currentPage = page;
+            // Highlight active nav
+            document.querySelectorAll('[data-nav]').forEach(btn => {
+                btn.classList.toggle('bg-white/60', btn.dataset.nav === page);
+                btn.classList.toggle('bg-white/30', btn.dataset.nav !== page);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Init activities when navigating
+            if (page === 'activities') showActivity('guess');
+        }
+
+        // ===== ACTIVITIES =====
+        function showActivity(type) {
+            document.querySelectorAll('.activity-content').forEach(c => c.classList.add('hidden'));
+            const target = document.getElementById('activity-' + type);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('page-transition');
+            }
+            document.querySelectorAll('.activity-tab').forEach(t => {
+                t.style.opacity = t.dataset.tab === type ? '1' : '0.6';
+                t.style.transform = t.dataset.tab === type ? 'scale(1.05)' : 'scale(1)';
+            });
+
+            if (type === 'guess' && currentGuess === 0) initGuess();
+            if (type === 'animals' && animalPage === 0) loadMoreAnimals();
+            if (type === 'quiz' && currentQuiz === 0) initQuiz();
+            if (type === 'math' && mathProblems.length === 0) initMath();
+        }
+
+        // --- GUESS ---
+        function initGuess() {
+            currentGuess = 0; guessScore = 0;
+            renderGuess();
+        }
+        function renderGuess() {
+            const g = guessData[currentGuess];
+            document.getElementById('guess-emoji').textContent = g.emoji;
+            document.getElementById('guess-hint').textContent = g.hint;
+            document.getElementById('guess-feedback').textContent = '';
+            document.getElementById('guess-next').classList.add('hidden');
+
+            const optC = document.getElementById('guess-options');
+            optC.innerHTML = '';
+            const shuffled = [...g.options].sort(() => Math.random() - 0.5);
+            shuffled.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option bg-gradient-to-r from-sunny/80 to-yellow-200 text-bark font-extrabold text-lg p-4 rounded-2xl border-3 border-yellow-300 shadow-md';
+                btn.textContent = opt;
+                btn.onclick = () => checkGuess(opt, btn);
+                optC.appendChild(btn);
+            });
+            renderProgress('guess-progress', guessData.length, currentGuess);
+        }
+        function checkGuess(selected, btn) {
+            const g = guessData[currentGuess];
+            const fb = document.getElementById('guess-feedback');
+            const allBtns = document.querySelectorAll('#guess-options button');
+            allBtns.forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+
+            if (selected === g.answer) {
+                fb.textContent = '🎉 Acertou! Parabéns!';
+                fb.style.color = '#1DD1A1';
+                btn.style.opacity = '1';
+                btn.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                btn.style.color = 'white';
+                guessScore++;
+                spawnStars(btn);
+            } else {
+                fb.textContent = '😊 Quase! A resposta é: ' + g.answer;
+                fb.style.color = '#FF6B6B';
+                btn.style.background = '#FF6B6B';
+                btn.style.color = 'white';
+                btn.style.opacity = '1';
+                allBtns.forEach(b => {
+                    if (b.textContent === g.answer) {
+                        b.style.opacity = '1';
+                        b.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                        b.style.color = 'white';
+                    }
+                });
+            }
+            if (currentGuess < guessData.length - 1) {
+                document.getElementById('guess-next').classList.remove('hidden');
+            }
+        }
+        function nextGuess() {
+            currentGuess++;
+            if (currentGuess < guessData.length) renderGuess();
+        }
+
+        // --- ANIMAL FACTS ---
+        function loadMoreAnimals() {
+            const container = document.getElementById('animal-cards');
+            const colorMap = { sunset: 'from-sunset/20 to-red-100 border-sunset', sunny: 'from-sunny/20 to-yellow-100 border-sunny', ocean: 'from-ocean/20 to-blue-100 border-ocean', candy: 'from-candy/20 to-pink-100 border-candy', forest: 'from-forest/20 to-green-100 border-forest', grape: 'from-grape/20 to-purple-100 border-grape' };
+
+            const start = (animalPage * 4) % animalFacts.length;
+            const facts = [];
+            for (let i = 0; i < 4; i++) {
+                facts.push(animalFacts[(start + i) % animalFacts.length]);
+            }
+
+            container.innerHTML = '';
+            facts.forEach((f, i) => {
+                const card = document.createElement('div');
+                card.className = `card-interactive bg-gradient-to-br ${colorMap[f.color]} rounded-3xl p-6 shadow-xl border-4 text-center anim-slide`;
+                card.style.animationDelay = (i * 0.1) + 's';
+                card.innerHTML = `
+          <div class="text-6xl mb-3 anim-wiggle inline-block">${f.emoji}</div>
+          <p class="text-lg font-extrabold text-bark">${f.fact}</p>
+        `;
+                container.appendChild(card);
+            });
+            animalPage++;
+        }
+
+        // --- QUIZ ---
+        function initQuiz() {
+            currentQuiz = 0; quizScore = 0;
+            document.getElementById('quiz-score').textContent = '⭐ Acertos: 0';
+            renderQuiz();
+        }
+        function renderQuiz() {
+            const q = quizData[currentQuiz];
+            document.getElementById('quiz-question').textContent = q.question;
+            document.getElementById('quiz-feedback').textContent = '';
+            document.getElementById('quiz-next').classList.add('hidden');
+
+            const optC = document.getElementById('quiz-options');
+            optC.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option w-full bg-gradient-to-r from-ocean/70 to-blue-200 text-bark font-extrabold text-lg p-4 rounded-2xl border-3 border-blue-300 shadow-md text-center';
+                btn.textContent = opt;
+                btn.onclick = () => checkQuiz(opt, btn);
+                optC.appendChild(btn);
+            });
+            renderProgress('quiz-progress', quizData.length, currentQuiz);
+        }
+        function checkQuiz(selected, btn) {
+            const q = quizData[currentQuiz];
+            const fb = document.getElementById('quiz-feedback');
+            const allBtns = document.querySelectorAll('#quiz-options button');
+            allBtns.forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+
+            if (selected === q.answer) {
+                fb.textContent = '🎉 Muito bem! Você acertou!';
+                fb.style.color = '#1DD1A1';
+                btn.style.opacity = '1';
+                btn.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                btn.style.color = 'white';
+                quizScore++;
+                document.getElementById('quiz-score').textContent = '⭐ Acertos: ' + quizScore;
+                spawnStars(btn);
+            } else {
+                fb.textContent = '😊 A resposta certa é: ' + q.answer;
+                fb.style.color = '#FF6B6B';
+                btn.style.background = '#FF6B6B';
+                btn.style.color = 'white';
+                btn.style.opacity = '1';
+                allBtns.forEach(b => {
+                    if (b.textContent === q.answer) {
+                        b.style.opacity = '1';
+                        b.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                        b.style.color = 'white';
+                    }
+                });
+            }
+            if (currentQuiz < quizData.length - 1) {
+                document.getElementById('quiz-next').classList.remove('hidden');
+            }
+        }
+        function nextQuiz() {
+            currentQuiz++;
+            if (currentQuiz < quizData.length) renderQuiz();
+        }
+
+        // --- MATH ---
+        function generateMathProblems() {
+            const problems = [];
+            for (let i = 0; i < 6; i++) {
+                const isAdd = Math.random() > 0.4;
+                let a, b, op, answer;
+                if (isAdd) {
+                    a = Math.floor(Math.random() * 15) + 1;
+                    b = Math.floor(Math.random() * 15) + 1;
+                    op = '+';
+                    answer = a + b;
+                } else {
+                    a = Math.floor(Math.random() * 15) + 5;
+                    b = Math.floor(Math.random() * a) + 1;
+                    op = '-';
+                    answer = a - b;
+                }
+                // Generate wrong answers
+                const wrongs = new Set();
+                while (wrongs.size < 3) {
+                    const w = answer + (Math.floor(Math.random() * 7) - 3);
+                    if (w !== answer && w >= 0) wrongs.add(w);
+                }
+                const options = [...wrongs, answer].sort(() => Math.random() - 0.5);
+                problems.push({ text: `${a} ${op} ${b} = ?`, answer, options });
+            }
+            return problems;
+        }
+        function initMath() {
+            currentMath = 0; mathScore = 0;
+            mathProblems = generateMathProblems();
+            document.getElementById('math-score').textContent = '⭐ Acertos: 0';
+            renderMath();
+        }
+        function renderMath() {
+            const m = mathProblems[currentMath];
+            document.getElementById('math-problem').textContent = m.text;
+            document.getElementById('math-feedback').textContent = '';
+            document.getElementById('math-next').classList.add('hidden');
+
+            const optC = document.getElementById('math-options');
+            optC.innerHTML = '';
+            m.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option bg-gradient-to-r from-grape/70 to-purple-200 text-bark font-extrabold text-2xl p-5 rounded-2xl border-3 border-purple-300 shadow-md font-heading';
+                btn.textContent = opt;
+                btn.onclick = () => checkMath(opt, btn);
+                optC.appendChild(btn);
+            });
+            renderProgress('math-progress', mathProblems.length, currentMath);
+        }
+        function checkMath(selected, btn) {
+            const m = mathProblems[currentMath];
+            const fb = document.getElementById('math-feedback');
+            const allBtns = document.querySelectorAll('#math-options button');
+            allBtns.forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+
+            if (selected === m.answer) {
+                fb.textContent = '🎉 Certíssimo!';
+                fb.style.color = '#1DD1A1';
+                btn.style.opacity = '1';
+                btn.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                btn.style.color = 'white';
+                mathScore++;
+                document.getElementById('math-score').textContent = '⭐ Acertos: ' + mathScore;
+                spawnStars(btn);
+            } else {
+                fb.textContent = '😊 A resposta é: ' + m.answer;
+                fb.style.color = '#FF6B6B';
+                btn.style.background = '#FF6B6B';
+                btn.style.color = 'white';
+                btn.style.opacity = '1';
+                allBtns.forEach(b => {
+                    if (parseInt(b.textContent) === m.answer) {
+                        b.style.opacity = '1';
+                        b.style.background = 'linear-gradient(to right, #1DD1A1, #55efc4)';
+                        b.style.color = 'white';
+                    }
+                });
+            }
+            if (currentMath < mathProblems.length - 1) {
+                document.getElementById('math-next').classList.remove('hidden');
+            } else {
+                setTimeout(() => {
+                    fb.textContent += ` | Final: ${mathScore}/${mathProblems.length} ⭐`;
+                }, 800);
+            }
+        }
+        function nextMath() {
+            currentMath++;
+            if (currentMath < mathProblems.length) renderMath();
+        }
+
+        // ===== STORIES =====
+        function toggleStory(id) {
+            const content = document.getElementById('story-content-' + id);
+            const arrow = document.getElementById('story-arrow-' + id);
+            const isHidden = content.classList.contains('hidden');
+
+            // Close all
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById('story-content-' + i).classList.add('hidden');
+                document.getElementById('story-arrow-' + i).style.transform = 'rotate(0deg)';
+            }
+
+            if (isHidden) {
+                content.classList.remove('hidden');
+                content.classList.add('page-transition');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // ===== HELPERS =====
+        function renderProgress(containerId, total, current) {
+            const c = document.getElementById(containerId);
+            c.innerHTML = '';
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                dot.style.background = i <= current ? '#FFD93D' : '#e2e8f0';
+                dot.style.transform = i === current ? 'scale(1.3)' : 'scale(1)';
+                c.appendChild(dot);
+            }
+        }
+
+        function spawnStars(element) {
+            const rect = element.getBoundingClientRect();
+            const emojis = ['⭐', '🌟', '✨', '💫', '🎉'];
+            for (let i = 0; i < 6; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-burst';
+                star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                star.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 120) + 'px';
+                star.style.top = (rect.top + (Math.random() - 0.5) * 80) + 'px';
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 700);
+            }
+        }
+
+        // ===== ELEMENT SDK =====
+        const defaultConfig = {
+            site_title: 'Aprender Brincando',
+            welcome_message: 'Bem-vindo! Vamos aprender se divertindo!',
+            contact_description: 'Um site educativo para crianças aprenderem de forma divertida.',
+            developer_name: 'Débora Aragão Gomes de Jesus',
+            background_color: '#FFF9E6',
+            surface_color: '#FFFFFF',
+            text_color: '#2D3436',
+            primary_action_color: '#FFD93D',
+            secondary_action_color: '#48DBFB',
+            font_family: 'Baloo 2',
+            font_size: 16
+        };
+
+        function applyConfig(config) {
+            // Text content
+            const title = config.site_title || defaultConfig.site_title;
+            const navTitle = document.getElementById('nav-title');
+            if (navTitle) navTitle.textContent = title;
+            const heroTitle = document.getElementById('hero-title');
+            if (heroTitle) heroTitle.textContent = title;
+            const heroMsg = document.getElementById('hero-message');
+            if (heroMsg) heroMsg.textContent = (config.welcome_message || defaultConfig.welcome_message) + ' 🎉';
+            const contactDesc = document.getElementById('contact-description');
+            if (contactDesc) contactDesc.textContent = config.contact_description || defaultConfig.contact_description;
+            const contactDev = document.getElementById('contact-developer');
+            if (contactDev) contactDev.textContent = config.developer_name || defaultConfig.developer_name;
+
+            // Colors
+            const bg = config.background_color || defaultConfig.background_color;
+            const surface = config.surface_color || defaultConfig.surface_color;
+            const text = config.text_color || defaultConfig.text_color;
+            const primary = config.primary_action_color || defaultConfig.primary_action_color;
+            const secondary = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+            const app = document.getElementById('app');
+            if (app) app.style.backgroundColor = bg;
+
+            document.querySelectorAll('.bg-white').forEach(el => el.style.backgroundColor = surface);
+
+            // Font
+            const fontFamily = config.font_family || defaultConfig.font_family;
+            const baseSize = config.font_size || defaultConfig.font_size;
+            const fontStack = `${fontFamily}, Nunito, sans-serif`;
+
+            document.querySelectorAll('.font-heading').forEach(el => {
+                el.style.fontFamily = `${fontFamily}, cursive`;
+            });
+            document.body.style.fontFamily = fontStack;
+
+            // Apply font size proportionally to key elements
+            if (heroTitle) heroTitle.style.fontSize = `${baseSize * 3.5}px`;
+            if (heroMsg) heroMsg.style.fontSize = `${baseSize * 1.4}px`;
+        }
+
+        // Initialize SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange: async (config) => applyConfig(config),
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+                        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+                        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+                        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+                        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+                    ],
+                    borderables: [],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+                    }
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ['site_title', config.site_title || defaultConfig.site_title],
+                    ['welcome_message', config.welcome_message || defaultConfig.welcome_message],
+                    ['contact_description', config.contact_description || defaultConfig.contact_description],
+                    ['developer_name', config.developer_name || defaultConfig.developer_name],
+                ])
+            });
+        }
+
+        // Init Lucide icons
+        lucide.createIcons();
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9ddfd21797e5cb04',t:'MTc3Mzc5MDU5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
